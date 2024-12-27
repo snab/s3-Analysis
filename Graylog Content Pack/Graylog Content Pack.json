@@ -1,0 +1,3033 @@
+{
+  "v": 1,
+  "id": "b6289642-f920-448d-bcb3-761a5525be9d",
+  "rev": 1,
+  "name": "Bucketanalysis",
+  "summary": "Tooling to analyze buckets",
+  "description": "Input, Pipelines and Dashboards to analyze Buckets.",
+  "vendor": "https://infosec.exchange/@bucketchallenge",
+  "url": "https://github.com/snab/s3-Analysis",
+  "parameters": [],
+  "entities": [
+    {
+      "v": "1",
+      "type": {
+        "name": "input",
+        "version": "1"
+      },
+      "id": "452aa6c7-6c5e-41f6-99c2-6afb0c0a55c2",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3"
+        },
+        "configuration": {
+          "tls_key_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "port": {
+            "@type": "integer",
+            "@value": 12201
+          },
+          "tls_enable": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "use_null_delimiter": {
+            "@type": "boolean",
+            "@value": true
+          },
+          "recv_buffer_size": {
+            "@type": "integer",
+            "@value": 1048576
+          },
+          "tcp_keepalive": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "tls_client_auth_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "bind_address": {
+            "@type": "string",
+            "@value": "0.0.0.0"
+          },
+          "tls_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "max_message_size": {
+            "@type": "integer",
+            "@value": 2097152
+          },
+          "tls_client_auth": {
+            "@type": "string",
+            "@value": "disabled"
+          },
+          "decompress_size_limit": {
+            "@type": "integer",
+            "@value": 8388608
+          },
+          "charset_name": {
+            "@type": "string",
+            "@value": "UTF-8"
+          },
+          "number_worker_threads": {
+            "@type": "integer",
+            "@value": 4
+          },
+          "tls_key_password": {
+            "@type": "string",
+            "@value": ""
+          }
+        },
+        "static_fields": {},
+        "type": {
+          "@type": "string",
+          "@value": "org.graylog2.inputs.gelf.tcp.GELFTCPInput"
+        },
+        "global": {
+          "@type": "boolean",
+          "@value": true
+        },
+        "extractors": []
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "ddb3db81-9309-4c56-bd1e-61e8392a848b",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Documents"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Documents\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".pdf\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".xps\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".doc\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".docx\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".docm\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".xlt\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".xltx\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".xls\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".xlsx\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".xlsm\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".xlsb\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ppt\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".pptx\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".pptm\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".pps\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ppsx\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ods\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".odt\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".odp\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"odg\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"dot\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"dotm\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"dotx\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"pot\",\n        ignore_case:true)\n        OR\n\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"potm\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"potx\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"rpt\",\n        ignore_case:true)\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Documents\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "643f72df-5f9a-4f57-b772-27dd145f170b",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3: add tag"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3: add tag\"\nwhen\n  to_string($message.gl2_source_input) == \"65f6255f7ab2b933fc4ea619\"\nthen\n  set_field(\"tag\", \"[]\");\nend\n\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "4ebbec98-d298-4d43-bad8-d7cfd51700a9",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Video"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Video\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".mp4\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".webm\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".mpeg\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ts\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".flv\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".avi\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".wmv\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".mov\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".mpg\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".m4v\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".m4s\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".mkv\",\n        ignore_case:true)\n\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Video\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline",
+        "version": "1"
+      },
+      "id": "a0b009ac-1c9b-46f3-8813-033177a5ed25",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3 Analsysis Pipeline"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "working on Buckets"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "pipeline \"s3 Analsysis Pipeline\"\nstage 0 match either\nrule \"s3: add tag\"\nstage 10 match pass\nrule \"s3: folderprefix\"\nrule \"s3:tagging:Archive\"\nrule \"s3:tagging:Audio\"\nrule \"s3:tagging:Checksum\"\nrule \"s3:tagging:Email\"\nrule \"s3:tagging:Executable\"\nrule \"s3:tagging:Documents\"\nrule \"s3:tagging:Folder\"\nrule \"s3:tagging:Images\"\nrule \"s3:tagging:Special\"\nrule \"s3:tagging:Text\"\nrule \"s3:tagging:Video\"\nrule \"s3:tagging:Web\"\nrule \"s3:tagging:special:.pdf\"\nrule \"s3:tagging:userstruct\"\nend"
+        },
+        "connected_streams": [
+          {
+            "@type": "string",
+            "@value": "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+          }
+        ]
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "c7e431db-1817-42e0-a4c7-404dfaf1eab7",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Audio"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Audio\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".mp3\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".m4a\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".wav\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".wma\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ogg\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".flac\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".opus\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".m3u8\",\n        ignore_case:true)\n\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Audio\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "07e0b03e-fdd6-4cea-afd3-9f0152393247",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Archive"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Archive\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".zip\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".rar\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".tar\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".gz\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".bz2\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".tgz\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".7z\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".apk\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".iso\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ace\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".deb\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".rpm\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".parquet\",\n        ignore_case:true)\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Archive\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "103a91fb-98ee-4a4b-b223-f2a86601dde9",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3: folderprefix"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "bucket indexing: grabbing folder names"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3: folderprefix\"\nwhen\n    has_field(field:\"key\") && \n    contains(to_string($message.key), \"/\")\nthen\n    let arr = split(pattern:\"/\", value:to_string($message.key));\n    set_field(\"folderlvl1\", arr[0]);\n    set_field(\"folderlvl2\", arr[1]);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "dashboard",
+        "version": "2"
+      },
+      "id": "dd838ddf-82e3-4452-a67e-ec2659b56e70",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": ""
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "7d42ddde-663b-4a7b-8a37-fe30c4526a58",
+              "timerange": {
+                "from": 300,
+                "type": "relative"
+              },
+              "filters": [],
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "column_limit": null,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "file_extension"
+                      ],
+                      "limit": 150,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "4567b6e8-ae47-4009-ba83-003759b7e96d",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "column_limit": null,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "sum",
+                      "id": "sum(size)",
+                      "field": "size"
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "bucket"
+                      ],
+                      "limit": 15,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "bd2c8c20-212d-4d52-b6fd-3eb6afbf42cd",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "sum(size)",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "column_limit": null,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": false,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "bucket"
+                      ],
+                      "limit": 15,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "4594c20c-3f02-4d38-b25f-6ccad4ab732a",
+                  "filters": [],
+                  "column_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "tag"
+                      ],
+                      "limit": 15,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "sort": []
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": null,
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "offset": 0,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "filter": null,
+                  "decorators": [
+                    {
+                      "id": "66afce142cfed277da49c40b",
+                      "type": "org.graylog2.decorators.FormatStringDecorator",
+                      "config": {
+                        "format_string": "https://${bucket}.s3.amazonaws.com/${key}",
+                        "require_all_fields": false,
+                        "target_field": "source"
+                      },
+                      "stream": null,
+                      "order": 1
+                    },
+                    {
+                      "id": "66afcf832cfed277da49c414",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "source"
+                      },
+                      "stream": null,
+                      "order": 2
+                    }
+                  ],
+                  "type": "messages",
+                  "stream_categories": [],
+                  "id": "93e559c9-c03f-4e7a-9846-398b10e642de",
+                  "limit": 150,
+                  "filters": []
+                }
+              ]
+            },
+            {
+              "id": "1a322f92-a1c9-4818-8161-b57ccfaf89a1",
+              "timerange": {
+                "from": 300,
+                "type": "relative"
+              },
+              "filters": [],
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "column_limit": null,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "sum",
+                      "id": "sum(size)",
+                      "field": "size"
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "fields": [
+                        "last_modified"
+                      ],
+                      "interval": {
+                        "type": "timeunit",
+                        "timeunit": "1M"
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "0c75d957-4ff8-4029-ae48-6b762a21eb5d",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "column_limit": null,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "fields": [
+                        "last_modified"
+                      ],
+                      "interval": {
+                        "type": "timeunit",
+                        "timeunit": "1M"
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "ff8a8b74-af67-4273-b8e7-f944a04ce128",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": []
+                }
+              ]
+            },
+            {
+              "id": "bddb7e00-47bf-4e32-8c48-d717800b338b",
+              "timerange": {
+                "from": 300,
+                "type": "relative"
+              },
+              "filters": [],
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "column_limit": null,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    },
+                    {
+                      "type": "sum",
+                      "id": "sum(size)",
+                      "field": "size"
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "file_extension"
+                      ],
+                      "limit": 150,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "a9c1fb24-b98c-4786-b7af-0bd900127d1a",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "column_limit": null,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    },
+                    {
+                      "type": "sum",
+                      "id": "sum(size)",
+                      "field": "size"
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "folderlvl1"
+                      ],
+                      "limit": 150,
+                      "skip_empty_values": false
+                    },
+                    {
+                      "type": "values",
+                      "fields": [
+                        "folderlvl2"
+                      ],
+                      "limit": 150,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "565d13c7-6718-4ccd-8496-c3333047128a",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "sum(size)",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": null,
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "offset": 0,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "filter": null,
+                  "decorators": [
+                    {
+                      "id": "66afce142cfed277da49c40b",
+                      "type": "org.graylog2.decorators.FormatStringDecorator",
+                      "config": {
+                        "format_string": "https://${bucket}.s3.amazonaws.com/${key}",
+                        "require_all_fields": false,
+                        "target_field": "source"
+                      },
+                      "stream": null,
+                      "order": 1
+                    },
+                    {
+                      "id": "66afcf832cfed277da49c414",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "source"
+                      },
+                      "stream": null,
+                      "order": 2
+                    }
+                  ],
+                  "type": "messages",
+                  "stream_categories": [],
+                  "id": "ff1b1785-5066-45fc-b5b0-3dc9116fcffd",
+                  "limit": 150,
+                  "filters": []
+                }
+              ]
+            },
+            {
+              "id": "4f8d26b8-0b11-453e-b41e-bfded174e84d",
+              "timerange": {
+                "from": 300,
+                "type": "relative"
+              },
+              "filters": [],
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "column_limit": null,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    },
+                    {
+                      "type": "sum",
+                      "id": "sum(size)",
+                      "field": "size"
+                    },
+                    {
+                      "type": "max",
+                      "id": "max(last_modified)",
+                      "field": "last_modified"
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "folderlvl1"
+                      ],
+                      "limit": 150,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "94f56163-01d3-40da-a23d-ad08d6531a4f",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "sum(size)",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "column_limit": null,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    },
+                    {
+                      "type": "sum",
+                      "id": "sum(size)",
+                      "field": "size"
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "file_extension"
+                      ],
+                      "limit": 150,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "ea288915-9c2c-4f60-9e3d-1d532e47321e",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": "NOT size:0"
+                  },
+                  "name": null,
+                  "timerange": {
+                    "from": 86400,
+                    "type": "relative"
+                  },
+                  "offset": 0,
+                  "streams": [
+                    "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  ],
+                  "filter": null,
+                  "decorators": [
+                    {
+                      "id": "66afcf832cfed277da49c414",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "message"
+                      },
+                      "stream": null,
+                      "order": 2
+                    }
+                  ],
+                  "type": "messages",
+                  "stream_categories": [],
+                  "id": "d5932cc8-3c0f-47e2-9a05-157d9535395c",
+                  "limit": 150,
+                  "filters": []
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "admin",
+          "created_at": "2024-10-31T17:30:11.324Z"
+        },
+        "created_at": "2024-05-10T20:03:01.277Z",
+        "requires": {},
+        "state": {
+          "7d42ddde-663b-4a7b-8a37-fe30c4526a58": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "widget": {
+                "a35b6565-eae8-4f57-8693-746b867fd824": "Aggregating count() by bucket (copy)",
+                "bae406de-8323-499a-bf57-5c8e93726000": "All Messages"
+              }
+            },
+            "widgets": [
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": 15,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "bucket"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "sum(size)"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "sum(size)",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "a35b6565-eae8-4f57-8693-746b867fd824",
+                "filters": []
+              },
+              {
+                "config": {
+                  "fields": [
+                    "last_modified",
+                    "size",
+                    "bucket",
+                    "source"
+                  ],
+                  "units": {},
+                  "show_message_row": false,
+                  "show_summary": false,
+                  "decorators": [
+                    {
+                      "id": "66afce142cfed277da49c40b",
+                      "type": "org.graylog2.decorators.FormatStringDecorator",
+                      "config": {
+                        "format_string": "https://${bucket}.s3.amazonaws.com/${key}",
+                        "require_all_fields": false,
+                        "target_field": "source"
+                      },
+                      "stream": null,
+                      "order": 1
+                    },
+                    {
+                      "id": "66afcf832cfed277da49c414",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "source"
+                      },
+                      "stream": null,
+                      "order": 2
+                    }
+                  ],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "last_modified",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "messages",
+                "stream_categories": [],
+                "id": "bae406de-8323-499a-bf57-5c8e93726000",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": 150,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "file_extension"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 150,
+                        "skip_empty_values": false
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "0e3cb869-2257-4d13-858e-adacd0e2a343",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": 15,
+                  "event_annotation": false,
+                  "row_limit": 15,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "bucket"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [
+                    {
+                      "fields": [
+                        "tag"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "bcd26821-cc77-4a7d-a778-503a4de4c4b7",
+                "filters": []
+              }
+            ],
+            "widget_mapping": {
+              "a35b6565-eae8-4f57-8693-746b867fd824": [
+                "bd2c8c20-212d-4d52-b6fd-3eb6afbf42cd"
+              ],
+              "0e3cb869-2257-4d13-858e-adacd0e2a343": [
+                "4567b6e8-ae47-4009-ba83-003759b7e96d"
+              ],
+              "bcd26821-cc77-4a7d-a778-503a4de4c4b7": [
+                "4594c20c-3f02-4d38-b25f-6ccad4ab732a"
+              ],
+              "bae406de-8323-499a-bf57-5c8e93726000": [
+                "93e559c9-c03f-4e7a-9846-398b10e642de"
+              ]
+            },
+            "positions": {
+              "a35b6565-eae8-4f57-8693-746b867fd824": {
+                "col": 11,
+                "row": 1,
+                "height": 3,
+                "width": 2
+              },
+              "bae406de-8323-499a-bf57-5c8e93726000": {
+                "col": 1,
+                "row": 5,
+                "height": 6,
+                "width": 10
+              },
+              "bcd26821-cc77-4a7d-a778-503a4de4c4b7": {
+                "col": 1,
+                "row": 1,
+                "height": 4,
+                "width": 10
+              },
+              "0e3cb869-2257-4d13-858e-adacd0e2a343": {
+                "col": 11,
+                "row": 4,
+                "height": 7,
+                "width": 2
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          },
+          "1a322f92-a1c9-4818-8161-b57ccfaf89a1": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "tab": {
+                "title": "Sizes and History"
+              },
+              "widget": {
+                "e08250bf-0293-493f-b684-97d21a99a698": "Files by Size",
+                "f7e8d85a-ced0-4793-98b0-fab29a93b744": "Files by Number"
+              }
+            },
+            "widgets": [
+              {
+                "config": {
+                  "visualization": "bar",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": null,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "last_modified"
+                      ],
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "timeunit",
+                          "value": 1,
+                          "unit": "months"
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "sum(size)"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "barmode": "group",
+                    "axis_type": "linear"
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "e08250bf-0293-493f-b684-97d21a99a698",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "bar",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": null,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "last_modified"
+                      ],
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "timeunit",
+                          "value": 1,
+                          "unit": "months"
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "barmode": "group",
+                    "axis_type": "linear"
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "f7e8d85a-ced0-4793-98b0-fab29a93b744",
+                "filters": []
+              }
+            ],
+            "widget_mapping": {
+              "f7e8d85a-ced0-4793-98b0-fab29a93b744": [
+                "ff8a8b74-af67-4273-b8e7-f944a04ce128"
+              ],
+              "e08250bf-0293-493f-b684-97d21a99a698": [
+                "0c75d957-4ff8-4029-ae48-6b762a21eb5d"
+              ]
+            },
+            "positions": {
+              "e08250bf-0293-493f-b684-97d21a99a698": {
+                "col": 1,
+                "row": 6,
+                "height": 5,
+                "width": "Infinity"
+              },
+              "f7e8d85a-ced0-4793-98b0-fab29a93b744": {
+                "col": 1,
+                "row": 1,
+                "height": 5,
+                "width": "Infinity"
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          },
+          "bddb7e00-47bf-4e32-8c48-d717800b338b": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "tab": {
+                "title": "Folders and Filetypes"
+              },
+              "widget": {
+                "6a90eb66-36b6-4494-bcef-6bc574d8ca44": "All Messages",
+                "d0068177-873f-4d57-b2a8-692e3dd13417": "Messages for file_extension:MOV",
+                "39f6b2ad-6866-47f1-bc27-1f9171800c98": "Messages for file_extension:pdf",
+                "830c3961-fe41-48e7-9e15-82205bef007f": "Messages for file_extension:pdf",
+                "51901e02-9056-402f-8c2d-ba94b4737266": "All Messages"
+              }
+            },
+            "widgets": [
+              {
+                "config": {
+                  "fields": [
+                    "last_modified",
+                    "size",
+                    "bucket",
+                    "source"
+                  ],
+                  "units": {},
+                  "show_message_row": false,
+                  "show_summary": false,
+                  "decorators": [
+                    {
+                      "id": "66afce142cfed277da49c40b",
+                      "type": "org.graylog2.decorators.FormatStringDecorator",
+                      "config": {
+                        "format_string": "https://${bucket}.s3.amazonaws.com/${key}",
+                        "require_all_fields": false,
+                        "target_field": "source"
+                      },
+                      "stream": null,
+                      "order": 1
+                    },
+                    {
+                      "id": "66afcf832cfed277da49c414",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "source"
+                      },
+                      "stream": null,
+                      "order": 2
+                    }
+                  ],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "last_modified",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "messages",
+                "stream_categories": [],
+                "id": "51901e02-9056-402f-8c2d-ba94b4737266",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": 150,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "folderlvl1"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 150,
+                        "skip_empty_values": false
+                      }
+                    },
+                    {
+                      "fields": [
+                        "folderlvl2"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 150
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    },
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "sum(size)"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "sum(size)",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "02108cc9-4b54-421d-a852-2c7735a49a88",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": 150,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "file_extension"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 150,
+                        "skip_empty_values": false
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    },
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "sum(size)"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "b7d3cfd0-3ba5-4df1-9cc0-fe6b2452c9bb",
+                "filters": []
+              }
+            ],
+            "widget_mapping": {
+              "b7d3cfd0-3ba5-4df1-9cc0-fe6b2452c9bb": [
+                "a9c1fb24-b98c-4786-b7af-0bd900127d1a"
+              ],
+              "02108cc9-4b54-421d-a852-2c7735a49a88": [
+                "565d13c7-6718-4ccd-8496-c3333047128a"
+              ],
+              "51901e02-9056-402f-8c2d-ba94b4737266": [
+                "ff1b1785-5066-45fc-b5b0-3dc9116fcffd"
+              ]
+            },
+            "positions": {
+              "02108cc9-4b54-421d-a852-2c7735a49a88": {
+                "col": 1,
+                "row": 1,
+                "height": 6,
+                "width": 7
+              },
+              "b7d3cfd0-3ba5-4df1-9cc0-fe6b2452c9bb": {
+                "col": 8,
+                "row": 1,
+                "height": 6,
+                "width": 4
+              },
+              "51901e02-9056-402f-8c2d-ba94b4737266": {
+                "col": 1,
+                "row": 7,
+                "height": 6,
+                "width": 10
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          },
+          "4f8d26b8-0b11-453e-b41e-bfded174e84d": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "tab": {
+                "title": "Folders and Filetypes (single level)"
+              },
+              "widget": {
+                "undefined": "Messages for file_extension:pdf",
+                "0334d710-bc88-4cc9-bcb0-e60d180ee2b1": "All Messages"
+              }
+            },
+            "widgets": [
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": 150,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "folderlvl1"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 150,
+                        "skip_empty_values": false
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    },
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "sum(size)"
+                    },
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "max(last_modified)"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "sum(size)",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "de1d533e-d435-47b5-ab52-498f86bb50c9",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": 150,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "file_extension"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 150,
+                        "skip_empty_values": false
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    },
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "sum(size)"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "0f09a9a1-6027-48f3-b433-6929818db95d",
+                "filters": []
+              },
+              {
+                "config": {
+                  "fields": [
+                    "last_modified",
+                    "size",
+                    "bucket",
+                    "message"
+                  ],
+                  "units": {},
+                  "show_message_row": false,
+                  "show_summary": false,
+                  "decorators": [
+                    {
+                      "id": "66afcf832cfed277da49c414",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "message"
+                      },
+                      "stream": null,
+                      "order": 2
+                    }
+                  ],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "last_modified",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": "NOT size:0"
+                },
+                "timerange": {
+                  "from": 86400,
+                  "type": "relative"
+                },
+                "streams": [
+                  "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                ],
+                "filter": null,
+                "type": "messages",
+                "stream_categories": [],
+                "id": "0334d710-bc88-4cc9-bcb0-e60d180ee2b1",
+                "filters": []
+              }
+            ],
+            "widget_mapping": {
+              "0f09a9a1-6027-48f3-b433-6929818db95d": [
+                "ea288915-9c2c-4f60-9e3d-1d532e47321e"
+              ],
+              "0334d710-bc88-4cc9-bcb0-e60d180ee2b1": [
+                "d5932cc8-3c0f-47e2-9a05-157d9535395c"
+              ],
+              "de1d533e-d435-47b5-ab52-498f86bb50c9": [
+                "94f56163-01d3-40da-a23d-ad08d6531a4f"
+              ]
+            },
+            "positions": {
+              "de1d533e-d435-47b5-ab52-498f86bb50c9": {
+                "col": 1,
+                "row": 1,
+                "height": 6,
+                "width": 7
+              },
+              "0f09a9a1-6027-48f3-b433-6929818db95d": {
+                "col": 8,
+                "row": 1,
+                "height": 6,
+                "width": 4
+              },
+              "0334d710-bc88-4cc9-bcb0-e60d180ee2b1": {
+                "col": 1,
+                "row": 7,
+                "height": 6,
+                "width": 10
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "admin",
+        "title": {
+          "@type": "string",
+          "@value": "s3 Bucket View"
+        },
+        "type": "DASHBOARD",
+        "description": {
+          "@type": "string",
+          "@value": ""
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "0a41fd96-893f-4c3a-b2af-b7d1e40d7378",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Executable"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Executable\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".exe\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".out\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".msi\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".jar\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".dmg\",\n        ignore_case:true)\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Executable\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "f687af6e-de91-41d2-8ff4-b45ad98a3d80",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:userstruct"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:userstruct\"\nwhen\n  contains(\n  value: to_string($message.message),\n  search: \"user\",\n  ignore_case: true\n)\n  OR\n  contains(\n  value: to_string($message.message),\n  search: \"member\",\n  ignore_case: true\n)\n  OR\n  contains(\n  value: to_string($message.message),\n  search:\"profile\",\n  ignore_case: true\n)\nthen\n  set_field(\"tag\", string_array_add($message.tag, \"userstruct\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "5b9b04fb-e1ba-44ff-8a24-0215e19e97c1",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Web"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Web\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".html\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".htm\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".xhtml\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".js\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".css\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".sass\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".less\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".scss\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".scssc\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ttf\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".otf\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".woff\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".woff2\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".svg\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"js.map\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"css.map\",\n        ignore_case:true)\n        OR\n        ends_with(\n        value:to_string($message.message),\n        suffix:\"min.map\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"eot\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"png\",\n        ignore_case:true)\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"web\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "ebee63cd-bc0d-406f-ab7a-50e61994c0e3",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Checksum"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Checksum\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".md5\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".sha\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".sha1\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".sha256\",\n        ignore_case:true)\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Checksum\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "636cd5b9-8e75-435b-8fcb-89850c3724a0",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Email"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Email\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".eml\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".mail\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".mbox\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".msg\",\n        ignore_case:true)\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Email\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "search",
+        "version": "1"
+      },
+      "id": "38d9f001-ddfa-4004-9a74-897fd6d0ce87",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": ""
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "0b08a7c9-63a6-44bd-8c6b-c620f2c70db8",
+              "timerange": {
+                "range": 0,
+                "type": "relative"
+              },
+              "filter": {
+                "type": "or",
+                "filters": [
+                  {
+                    "type": "stream",
+                    "id": "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  }
+                ]
+              },
+              "filters": [],
+              "query": {
+                "type": "elasticsearch",
+                "query_string": "NOT size:0 AND bucket:idmdatastore "
+              },
+              "search_types": [
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "column_limit": null,
+                  "streams": [],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    },
+                    {
+                      "type": "sum",
+                      "id": "sum(size)",
+                      "field": "size"
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "fields": [
+                        "last_modified"
+                      ],
+                      "interval": {
+                        "type": "timeunit",
+                        "timeunit": "1M"
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "b5c95116-d999-4aba-9427-c391b2d46bc3",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "column_limit": null,
+                  "streams": [],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "folderlvl1",
+                        "folderlvl2"
+                      ],
+                      "limit": 15,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "fb8eb3fe-2213-47b5-af6c-c47c3e88b04d",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "column_limit": null,
+                  "streams": [],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": false,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "bucket"
+                      ],
+                      "limit": 15,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "055c682d-4d07-4b1d-8baa-e9f1f9ccf815",
+                  "filters": [],
+                  "column_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "tag"
+                      ],
+                      "limit": 15,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "sort": []
+                },
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "column_limit": null,
+                  "streams": [],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "file_extension"
+                      ],
+                      "limit": 150,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "c7710b39-669d-427f-9d7d-1303f957c6ba",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": null,
+                  "name": null,
+                  "timerange": null,
+                  "offset": 0,
+                  "streams": [],
+                  "filter": null,
+                  "decorators": [
+                    {
+                      "id": "65f89b42c94d62198adb4941",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "message"
+                      },
+                      "stream": null,
+                      "order": 0
+                    }
+                  ],
+                  "type": "messages",
+                  "stream_categories": [],
+                  "id": "4617facc-d4cb-45a2-b87c-f38496a020ae",
+                  "limit": 150,
+                  "filters": []
+                },
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "column_limit": null,
+                  "streams": [],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "sum",
+                      "id": "sum(size)",
+                      "field": "size"
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "fields": [
+                        "bucket"
+                      ],
+                      "limit": 15,
+                      "skip_empty_values": false
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "3067eeb8-dc94-404a-9c4b-9cd346d87fd9",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "sum(size)",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "admin",
+          "created_at": "2024-05-10T20:02:09.145Z"
+        },
+        "created_at": "2024-03-16T23:17:30.386Z",
+        "requires": {},
+        "state": {
+          "0b08a7c9-63a6-44bd-8c6b-c620f2c70db8": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "widget": {
+                "c0249b3f-ce7a-4598-b2f1-2c4431c4b9a8": "Message Count",
+                "b27b21af-375d-4e47-aeb6-2b4d4af3dda8": "All Messages",
+                "c7732e04-da6e-46b4-b46f-9bf5dbe22739": "Aggregating count() by bucket (copy)",
+                "5bb3ba9c-faa8-41b5-8c48-1b504df358af": "Messages for bucket:ebsadmin AND tag:Special"
+              }
+            },
+            "widgets": [
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": 15,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "folderlvl1",
+                        "folderlvl2"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 15,
+                        "skip_empty_values": false
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": null,
+                "timerange": null,
+                "streams": [],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "3892777b-760a-4972-99cd-b89adae9e059",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "bar",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": null,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "last_modified"
+                      ],
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "timeunit",
+                          "value": 1,
+                          "unit": "months"
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    },
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "sum(size)"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "barmode": "group",
+                    "axis_type": "logarithmic"
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": null,
+                "timerange": null,
+                "streams": [],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "c0249b3f-ce7a-4598-b2f1-2c4431c4b9a8",
+                "filters": []
+              },
+              {
+                "config": {
+                  "fields": [
+                    "last_modified",
+                    "size",
+                    "bucket",
+                    "message"
+                  ],
+                  "units": {},
+                  "show_message_row": false,
+                  "show_summary": false,
+                  "decorators": [
+                    {
+                      "id": "65f89b42c94d62198adb4941",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "message"
+                      },
+                      "stream": null,
+                      "order": 0
+                    }
+                  ],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "size",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                "query": null,
+                "timerange": null,
+                "streams": [],
+                "filter": null,
+                "type": "messages",
+                "stream_categories": [],
+                "id": "b27b21af-375d-4e47-aeb6-2b4d4af3dda8",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": 15,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "bucket"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "sum(size)"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "sum(size)",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                "query": null,
+                "timerange": null,
+                "streams": [],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "c7732e04-da6e-46b4-b46f-9bf5dbe22739",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": 15,
+                  "event_annotation": false,
+                  "row_limit": 15,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "bucket"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [
+                    {
+                      "fields": [
+                        "tag"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": null,
+                "timerange": null,
+                "streams": [],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "d84f171b-53a1-4b73-9dfd-5889895f5f84",
+                "filters": []
+              },
+              {
+                "config": {
+                  "visualization": "table",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": 150,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "file_extension"
+                      ],
+                      "type": "values",
+                      "config": {
+                        "limit": 150,
+                        "skip_empty_values": false
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": false,
+                  "column_pivots": [],
+                  "visualization_config": {
+                    "pinned_columns": []
+                  },
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": null,
+                "timerange": null,
+                "streams": [],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "24ca6e83-aac5-4d56-a5f0-f8297fbba8a5",
+                "filters": []
+              }
+            ],
+            "widget_mapping": {
+              "24ca6e83-aac5-4d56-a5f0-f8297fbba8a5": [
+                "c7710b39-669d-427f-9d7d-1303f957c6ba"
+              ],
+              "3892777b-760a-4972-99cd-b89adae9e059": [
+                "fb8eb3fe-2213-47b5-af6c-c47c3e88b04d"
+              ],
+              "c0249b3f-ce7a-4598-b2f1-2c4431c4b9a8": [
+                "b5c95116-d999-4aba-9427-c391b2d46bc3"
+              ],
+              "d84f171b-53a1-4b73-9dfd-5889895f5f84": [
+                "055c682d-4d07-4b1d-8baa-e9f1f9ccf815"
+              ],
+              "b27b21af-375d-4e47-aeb6-2b4d4af3dda8": [
+                "4617facc-d4cb-45a2-b87c-f38496a020ae"
+              ],
+              "c7732e04-da6e-46b4-b46f-9bf5dbe22739": [
+                "3067eeb8-dc94-404a-9c4b-9cd346d87fd9"
+              ]
+            },
+            "positions": {
+              "24ca6e83-aac5-4d56-a5f0-f8297fbba8a5": {
+                "col": 11,
+                "row": 5,
+                "height": 4,
+                "width": 2
+              },
+              "c0249b3f-ce7a-4598-b2f1-2c4431c4b9a8": {
+                "col": 6,
+                "row": 1,
+                "height": 4,
+                "width": 4
+              },
+              "d84f171b-53a1-4b73-9dfd-5889895f5f84": {
+                "col": 1,
+                "row": 1,
+                "height": 4,
+                "width": 5
+              },
+              "b27b21af-375d-4e47-aeb6-2b4d4af3dda8": {
+                "col": 1,
+                "row": 5,
+                "height": 6,
+                "width": 10
+              },
+              "3892777b-760a-4972-99cd-b89adae9e059": {
+                "col": 10,
+                "row": 1,
+                "height": 4,
+                "width": 3
+              },
+              "c7732e04-da6e-46b4-b46f-9bf5dbe22739": {
+                "col": 11,
+                "row": 9,
+                "height": 2,
+                "width": 2
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "admin",
+        "title": {
+          "@type": "string",
+          "@value": "s3"
+        },
+        "type": "SEARCH",
+        "description": {
+          "@type": "string",
+          "@value": ""
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "91305fd9-5230-456e-97aa-9a94c70582b2",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Folder"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Folder\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\"/\",\n        ignore_case:true)\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Folder\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "0674a506-be16-4a3c-9d92-21eabef40618",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Text"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Text\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".rtf\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".txt\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".csv\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".xml\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".json\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".md\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".yml\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".log\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".init\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".init\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ini\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".conf\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".yaml\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".yml\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".dump\",\n        ignore_case:true)\n\n\n\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Text\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "b330b9aa-698b-4ee7-8b4f-8431121ec228",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Images"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Images\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".jpg\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".jpeg\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".eps\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".png\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".gif\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".webp\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".tif\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".bmp\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ico\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".jfif\",\n        ignore_case:true)\n\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Image\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "b2009385-aafd-4981-ab81-337557577a9e",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:special:.pdf"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:special:.pdf\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".pdf\",\n        ignore_case:true)\nthen\n    //set_field(\"tag\", string_array_add(\"Special\", \"office\", true));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "search",
+        "version": "1"
+      },
+      "id": "bfb77d8a-28c2-478a-86df-535dd1b21757",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": ""
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "0245cac5-efcb-4178-8175-0963da510551",
+              "timerange": {
+                "from": 86400,
+                "type": "relative"
+              },
+              "filter": {
+                "type": "or",
+                "filters": [
+                  {
+                    "type": "stream",
+                    "id": "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18"
+                  }
+                ]
+              },
+              "filters": [],
+              "query": {
+                "type": "elasticsearch",
+                "query_string": "last_modified:[\"2024-08-22T00:00:00.000\" TO \"2024-08-24T00:00:00.000\"]"
+              },
+              "search_types": [
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "column_limit": null,
+                  "streams": [],
+                  "row_limit": null,
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "fields": [
+                        "timestamp"
+                      ],
+                      "interval": {
+                        "type": "auto",
+                        "scaling": 1
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "stream_categories": [],
+                  "id": "6f8aa717-1896-4c21-9abd-6492e4c41214",
+                  "filters": [],
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": null,
+                  "name": null,
+                  "timerange": null,
+                  "offset": 0,
+                  "streams": [],
+                  "filter": null,
+                  "decorators": [],
+                  "type": "messages",
+                  "stream_categories": [],
+                  "id": "2faa8baf-754d-4aec-88d4-f7b0c2a74fda",
+                  "limit": 150,
+                  "filters": []
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "admin",
+          "created_at": "2024-08-24T22:48:52.188Z"
+        },
+        "created_at": "2024-08-24T22:48:47.870Z",
+        "requires": {},
+        "state": {
+          "0245cac5-efcb-4178-8175-0963da510551": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "widget": {
+                "c0234d1b-e7a1-44b0-a5c5-cb3347bad3c2": "Message Count",
+                "eceea243-7abf-4b6e-8809-28883b5d3073": "All Messages"
+              }
+            },
+            "widgets": [
+              {
+                "config": {
+                  "visualization": "bar",
+                  "units": {},
+                  "column_limit": null,
+                  "event_annotation": false,
+                  "row_limit": null,
+                  "row_pivots": [
+                    {
+                      "fields": [
+                        "timestamp"
+                      ],
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "auto",
+                          "scaling": 1
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": []
+                },
+                "query": null,
+                "timerange": null,
+                "streams": [],
+                "filter": null,
+                "type": "aggregation",
+                "stream_categories": [],
+                "id": "c0234d1b-e7a1-44b0-a5c5-cb3347bad3c2",
+                "filters": []
+              },
+              {
+                "config": {
+                  "fields": [
+                    "timestamp",
+                    "source"
+                  ],
+                  "units": {},
+                  "show_message_row": true,
+                  "show_summary": true,
+                  "decorators": [],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "timestamp",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                "query": null,
+                "timerange": null,
+                "streams": [],
+                "filter": null,
+                "type": "messages",
+                "stream_categories": [],
+                "id": "eceea243-7abf-4b6e-8809-28883b5d3073",
+                "filters": []
+              }
+            ],
+            "widget_mapping": {
+              "c0234d1b-e7a1-44b0-a5c5-cb3347bad3c2": [
+                "6f8aa717-1896-4c21-9abd-6492e4c41214"
+              ],
+              "eceea243-7abf-4b6e-8809-28883b5d3073": [
+                "2faa8baf-754d-4aec-88d4-f7b0c2a74fda"
+              ]
+            },
+            "positions": {
+              "c0234d1b-e7a1-44b0-a5c5-cb3347bad3c2": {
+                "col": 1,
+                "row": 1,
+                "height": 2,
+                "width": "Infinity"
+              },
+              "eceea243-7abf-4b6e-8809-28883b5d3073": {
+                "col": 1,
+                "row": 3,
+                "height": 6,
+                "width": "Infinity"
+              }
+            },
+            "formatting": null,
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "admin",
+        "title": {
+          "@type": "string",
+          "@value": "timeselect"
+        },
+        "type": "SEARCH",
+        "description": {
+          "@type": "string",
+          "@value": ""
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "42a118e2-dbc7-4a23-9cba-b9ae640dc1a6",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "s3:tagging:Special"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"s3:tagging:Special\"\nwhen\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".dump\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".htaccess\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".p12\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".pem\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".crt\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".key\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".priv\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".pub\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ovpn\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".connect\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".openpgp\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".pgp\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".pgp\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".p7s\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".kdb\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".1pif\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".1pux\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".kwl\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".wallet\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".tvs\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".env\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".conf\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".bash_profile\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".bashrc\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".bash_logout\",\n        ignore_case:true)\n        OR\n    ends_with(\n        value:to_string($message.message),\n        suffix:\".ftpquota\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"VS-NfD\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"VS-Vertr\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"VS-Vertr\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"Str. Geh\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"Backup\",\n        ignore_case:true)\n        OR\n\n    contains(\n        value:to_string($message.message),\n        search:\"param\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"passwd\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"shadow\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"id_ed25519\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"id_rsa\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"id_dsa\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"id_ecdsa\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"ssh_host_ed25519_key\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"ssh_host_dsa_key\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"ssh_host_ecdsa_key\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"ssh_host_rsa_key\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\".htpasswd\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"password\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"passport\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"ausweis\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"proof\",\n        ignore_case:true)\n            OR\n    contains(\n        value:to_string($message.message),\n        search:\"pass\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"patient\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"career\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"mdb\",\n        ignore_case:true)\n        OR\n    contains(\n        value:to_string($message.message),\n        search:\"history\",\n        ignore_case:true)\n        OR\n        (\n        contains(\n            value:to_string($message.message),\n            search:\"driving\",\n            ignore_case:true) AND\n        contains(\n            value:to_string($message.message),\n            search:\"license\",\n            ignore_case:true) \n        )\n\nthen\n    set_field(\"tag\", string_array_add($message.tag, \"Special\"));\nend "
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "stream_title",
+        "version": "1"
+      },
+      "id": "21d4bbdb-bd4a-4974-bb89-9fa74e10bb18",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Default Stream"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=6.1.2+c8b654f"
+        }
+      ]
+    }
+  ]
+}
